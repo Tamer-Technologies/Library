@@ -86,15 +86,18 @@ h1 {
 
 .book-title {
   margin-block: 0.5rem 1rem;
-  color: var(--header-color);
+  color: var(--dark);
 }
 
 .book-author {
   color: var(--gray);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.7rem;
 }
 
-.book-year {
+.year-pages-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: var(--light-gray);
 }
 

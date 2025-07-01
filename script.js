@@ -1,4 +1,8 @@
 const booksContainer = document.querySelector(".books-grid");
+const formModal = document.querySelector(".form-modal");
+const bookFormSubmition = document.querySelector(".add-book-form");
+const bookFormCancel = document.querySelector(".book-form-cancel");
+const addBook = document.querySelector(".add-book");
 
 const MyLibrary = [{
     id: crypto.randomUUID(),
@@ -70,8 +74,7 @@ function addBookToLibrary(title, img, author, noOfPages, year) {
   MyLibrary.push(book);
 }
 
-
-MyLibrary.forEach(book => {
+function createBookCard(book) {
   const bookElement = document.createElement('div');
   bookElement.className = 'book';
   bookElement.innerHTML = `
@@ -86,8 +89,46 @@ MyLibrary.forEach(book => {
       </div>
   `;
   booksContainer.appendChild(bookElement);
+}
 
+function toTitleCase(text) {
+  return text
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+
+MyLibrary.forEach(book => {
+  createBookCard(book);
+});
+
+addBook.addEventListener("click", () => {
+  formModal.showModal();
+});
+
+bookFormCancel.addEventListener("click", () => {
+  formModal.close();
 })
+
+bookFormSubmition.addEventListener("submit", () => {
+
+  const title = toTitleCase(document.getElementById('form-book-title').value);
+  const author = toTitleCase(document.getElementById('form-book-author').value);
+  const year = document.getElementById('form-book-year').value;
+  const pages = document.getElementById('form-book-pages').value;
+  const img = "/media/book-covers/default-cover.png"; //should be added in form later;
+
+  addBookToLibrary(title, img, author, pages, year);
+  createBookCard(MyLibrary[MyLibrary.length - 1]);
+
+  bookFormSubmition.reset();
+})
+
+
+
+
 
 
 

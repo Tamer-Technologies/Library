@@ -102,3 +102,117 @@ h1 {
 }
 
 
+.add-book-form {
+  background-color: var(--yello-button);
+  max-width: 750px;
+  min-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  border: 2px solid var(--dark);
+}
+
+.add-book-form fieldset{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  border: none;
+}
+
+.add-book-form legend {
+  font-weight: bold;
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--dark);
+}
+
+dialog {
+  border: none;
+  background-color: transparent;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+dialog::backdrop {
+  background-color: var(--dark);
+  opacity: 0.3;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-group label, .form-options button{
+  font-size: 1.25rem;
+}
+
+.form-group input{
+  font-size: 1rem;
+  outline: none;
+  padding: 0.5em;
+  width: 100%;
+  min-width: 100px;
+
+}
+
+.form-options {
+  grid-column: 1 / 3;
+  display: flex;
+  justify-content: end;
+  gap: 2rem;
+}
+
+.form-group input, .form-options button {
+  border: 2px solid var(--dark);
+  padding: 0.5em 1em;
+  border-radius: 3px;
+}
+
+.form-options button {
+  background-color: var(--light);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden; 
+  transition: color 0.15s ease-out; 
+  z-index: 1;
+}
+
+.form-options button:hover {
+  color: var(--light);
+}
+
+.form-options button::before {
+  content: '';
+  position: absolute;
+  background-color: var(--dark);
+  width: 20px;
+  height: 20px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  transition: transform 0.3s ease-out; 
+  z-index: -1;
+}
+
+.form-options button:hover::before {
+  transform: translate(-50%, -50%) scale(6);
+}
+
+.form-options button:active::before {
+  background-color: var(--gray);
+}
+
+
+
+
+
+

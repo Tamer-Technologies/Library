@@ -3,6 +3,9 @@ const formModal = document.querySelector(".form-modal");
 const bookFormSubmition = document.querySelector(".add-book-form");
 const bookFormCancel = document.querySelector(".book-form-cancel");
 const addBook = document.querySelector(".add-book");
+const formBookCover = document.querySelector("#form-book-cover");
+const formCoverView = document.querySelector(".cover-view");
+
 
 const MyLibrary = [{
     id: crypto.randomUUID(),
@@ -55,8 +58,7 @@ const MyLibrary = [{
     pages: 365
   }];
 
-
-
+  let newBookCoverURL = "";
 
 
 function Book(id, title, img, author, pages, year) {
@@ -102,6 +104,12 @@ function toTitleCase(text) {
 }
 
 
+function resetBookCoverURL() {
+  newBookCoverURL = "";
+  formCoverView.style.backgroundImage = "";
+}
+
+
 MyLibrary.forEach(book => {
   createBookCard(book);
 });
@@ -112,6 +120,14 @@ addBook.addEventListener("click", () => {
 
 bookFormCancel.addEventListener("click", () => {
   formModal.close();
+  resetBookCoverURL();
+});
+
+
+formBookCover.addEventListener("change", () => {
+  const image = formBookCover.files[0];
+  formCoverView.style.backgroundImage = `url(${URL.createObjectURL(image)})`;
+  newBookCoverURL = `${URL.createObjectURL(image)}`
 })
 
 bookFormSubmition.addEventListener("submit", () => {
@@ -120,13 +136,17 @@ bookFormSubmition.addEventListener("submit", () => {
   const author = toTitleCase(document.getElementById('form-book-author').value);
   const year = document.getElementById('form-book-year').value;
   const pages = document.getElementById('form-book-pages').value;
-  const img = "/media/book-covers/default-cover.png"; //should be added in form later;
+  const img = newBookCoverURL ? newBookCoverURL : "/media/book-covers/default-cover.png";
+  resetBookCoverURL();
 
   addBookToLibrary(title, img, author, pages, year);
   createBookCard(MyLibrary[MyLibrary.length - 1]);
 
   bookFormSubmition.reset();
 })
+
+
+
 
 
 

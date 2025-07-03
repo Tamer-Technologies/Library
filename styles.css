@@ -4,7 +4,7 @@
   --gray: #505050;
   --light-gray: #888888;
   --pr-yellow: #ffe390;
-  --bg-color: #fff3e3;
+  --bg-color: #fffbf6;
   --fontsm1: 0.25rem;
   --fontsm2: 0.5rem;
   --fontsm3: 0.75rem;
@@ -155,6 +155,7 @@ dialog::backdrop {
   flex-direction: column;
 }
 
+
 .form-group label {
   font-size: var(--fontlg1);
 }
@@ -169,10 +170,31 @@ dialog::backdrop {
   border-radius: 3px;
 }
 
+.form-group.form-cover {
+  flex-direction: row;
+  justify-content: space-around;
+  grid-column: 1 / -1;
+}
+
+.form-cover input{
+  display: none;
+}
+
+
+.cover-view {
+  aspect-ratio: 2/3;
+  background-color: var(--light);
+  background-position: center;
+  background-size: cover;
+  border: var(--pr-border);
+  border-radius: 6px;
+  width: 100px;
+}
+
 .form-options {
   grid-column: 1 / -1;
   display: flex;
-  justify-content: end;
+  justify-content: center;
   gap: 2rem;
 }
 

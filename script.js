@@ -79,6 +79,7 @@ function addBookToLibrary(title, img, author, pages, year) {
 function createBookCard(book) {
   const bookElement = document.createElement('div');
   bookElement.className = 'book';
+  bookElement.dataset.id = book.id;
   bookElement.innerHTML = `
       <div class="book-cover">
       <img src="${book.img}" alt="${book.title}">
@@ -89,6 +90,9 @@ function createBookCard(book) {
         <div class="space-between-container">
           <p class="book-year">${book.year}/yr</p>
           <p class="no-of-pages">${book.pages}/pg</p>
+        </div>
+        <div class="space-between-container">
+          <p class="button clear-card" data-id="${book.id}">Remove</p>
         </div>
       </div>
   `;
@@ -109,10 +113,18 @@ function resetBookCoverURL() {
   formCoverView.style.backgroundImage = "";
 }
 
+function removeBook(id) {
+  const bookIndex = MyLibrary.findIndex(obj => obj.id = id);
+  document.querySelector(`[data-id="${id}"]`).remove();
+  MyLibrary.splice(bookIndex, 1);
+}
+
 
 MyLibrary.forEach(book => {
   createBookCard(book);
 });
+
+
 
 addBook.addEventListener("click", () => {
   formModal.showModal();
@@ -145,12 +157,13 @@ bookFormSubmition.addEventListener("submit", () => {
   bookFormSubmition.reset();
 })
 
+const clearCards = document.querySelectorAll(".clear-card");
 
-
-
-
-
-
-
+clearCards.forEach(card => {
+  card.addEventListener("click", () => {
+  const elementId = card.dataset.id;
+  removeBook(elementId);
+});
+})
 
 

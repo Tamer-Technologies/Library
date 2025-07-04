@@ -61,6 +61,7 @@ h1 {
 .books-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  padding: 1rem;
   gap: 3rem 6rem;  
 }
 
@@ -111,6 +112,10 @@ h1 {
   color: var(--light-gray);
 }
 
+.button.clear-card {
+  font-size: var(--fontnm);
+}
+
 dialog {
   border: none;
   background-color: transparent;
@@ -137,7 +142,6 @@ dialog::backdrop {
 .add-book-form fieldset {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
   gap: 2rem;
   border: none;
 }
@@ -199,6 +203,7 @@ dialog::backdrop {
 }
 
 .button {
+  color: var(--dark);
   font-size: var(--fontlg1);
   border: var(--pr-border);
   background-color: var(--light);

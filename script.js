@@ -212,7 +212,7 @@ readToggles.forEach(toggle => {
   toggle.addEventListener("click", () => {
     const elementId = toggle.dataset.id;
     toggleReadBook(elementId);
-    updateReadStatus(elementId);S
+    updateReadStatus(elementId);
   });
 });
 

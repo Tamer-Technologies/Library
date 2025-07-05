@@ -13,66 +13,78 @@ const MyLibrary = [{
     img: "/media/book-covers/image 1.png",
     author: "Automatonia Springs",
     year: 1875,
-    pages: 320
+    pages: 320,
+    readStatus: false
   },{
     id: crypto.randomUUID(),
     title: "Echoes from the Undermountain Bazaar",
     img: "/media/book-covers/image 2.png",
     author: "Underhill Gnome",
     year: 987,
-    pages: 450
+    pages: 450,
+    readStatus: false
   },{
     id: crypto.randomUUID(),
     title: "The Last Map to Nowhere",
     img: "/media/book-covers/image 3.png",
     author: "Wanderer's Companion",
     year: 1602,
-    pages: 288
+    pages: 288,
+    readStatus: false
   },{
     id: crypto.randomUUID(),
     title: "The Quantum Garden: Growing Entangled Tomatoes",
     img: "/media/book-covers/image 4.png",
     author: "Dr. Bloom Pixel",
     year: 2065,
-    pages: 412
+    pages: 412,
+    readStatus: false
   },{
     id: crypto.randomUUID(),
     title: "A Compendium of Complaining Algorithms",
     img: "/media/book-covers/image 5.png",
     author: "A.I. Grumbles",
     year: 2030,
-    pages: 198
+    pages: 198,
+    readStatus: false
   },{
     id: crypto.randomUUID(),
     title: "The Labyrinth of Lost Algorithms",
     img: "/media/book-covers/image 7.png",
     author: "Code Weaver",
     year: 2050,
-    pages: 550
+    pages: 550,
+    readStatus: false
   },{
     id: crypto.randomUUID(),
     title: "Echoes from the Sunken Library",
     img: "/media/book-covers/image 8.png",
     author: "Deep Sea Scribe",
     year: 1788,
-    pages: 365
+    pages: 365,
+    readStatus: false
   }];
 
   let newBookCoverURL = "";
 
 
-function Book(id, title, img, author, pages, year) {
+function Book(id, title, img, author, pages, year, readStatus) {
   this.id = id;
   this.title = title;
   this.img = img;
   this.author = author;
   this.pages = pages;
   this.year = year;
+  this.readStatus = readStatus;
+
+  this.toggleRead = function() {
+    this.readStatus = !this.readStatus;
+  }
 }
 
-function addBookToLibrary(title, img, author, pages, year) {
+function addBookToLibrary(title, img, author, pages, year, readStatus = false) {
   const uniqueId = crypto.randomUUID(); 
-  const book = new Book(uniqueId, title, img, author, pages, year);
+  const book = new Book(uniqueId, title, img, author, pages, year, readStatus);
   MyLibrary.push(book);
 }
 
@@ -92,6 +104,12 @@ function createBookCard(book) {
           <p class="no-of-pages">${book.pages}/pg</p>
         </div>
         <div class="space-between-container">
+          <div class="read-state-container">
+          <input type="checkbox" name="read-state" id="read-state-${book.id}"
+           ${book.readStatus && "checked"}>
+          <label for="read-state-${book.id}" class="read-toggle" data-id="${book.id}"></label>
+          <span class="toggle-msg-${book.id}">${book.readStatus ? "Read" : "Not Read"}</span>
+          </div>
           <p class="button clear-card" data-id="${book.id}">Remove</p>
         </div>
       </div>
@@ -113,10 +131,30 @@ function resetBookCoverURL() {
   formCoverView.style.backgroundImage = "";
 }
 
+function getBookIndex(id) {
+  const bookIndex = MyLibrary.findIndex(obj => obj.id === id);
+  return bookIndex;
+}
+
+function toggleReadBook(id) {
+  const bookIndex = getBookIndex(id);
+  MyLibrary[bookIndex].readStatus = !MyLibrary[bookIndex].readStatus;
+} 
+
 function removeBook(id) {
-  const bookIndex = MyLibrary.findIndex(obj => obj.id = id);
+  const bookIndex = getBookIndex(id);
   document.querySelector(`[data-id="${id}"]`).remove();
   MyLibrary.splice(bookIndex, 1);
+}
+
+function updateReadStatus(id) {
+  const bookIndex = getBookIndex(id);
+  const toggleMsg = document.querySelector(`.toggle-msg-${id}`);
+  if (MyLibrary[bookIndex].readStatus) {
+    toggleMsg.innerText = "Read";
+  } else {
+    toggleMsg.innerHTML = "Not Read";
+  }
 }
 
 
@@ -164,6 +202,19 @@ clearCards.forEach(card => {
   const elementId = card.dataset.id;
   removeBook(elementId);
 });
-})
+});
+
+
+
+const readToggles = document.querySelectorAll(".read-toggle");
+
+readToggles.forEach(toggle => {
+  toggle.addEventListener("click", () => {
+    const elementId = toggle.dataset.id;
+    toggleReadBook(elementId);
+    updateReadStatus(elementId);S
+  });
+});
+
 
 

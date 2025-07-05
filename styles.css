@@ -15,6 +15,7 @@
   --fontvlg: 2rem;
   --pr-border: 2px solid var(--dark);
   --p-text: 0.5em 1em;
+  --rounded: 1000rem;
 }
 
 * {
@@ -110,6 +111,53 @@ h1 {
   justify-content: space-between;
   align-items: center;
   color: var(--light-gray);
+}
+
+.read-state-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.read-state-container input {
+  display: none;
+}
+
+.read-state-container label{
+  display: inline-block;
+  width: 4rem;
+  aspect-ratio: 2.5/1;
+  background-color: var(--light);
+  border: var(--pr-border);
+  border-radius: var(--rounded);
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+}
+
+.read-state-container label::before {
+  content: '';
+  position: absolute;
+  background-color: var(--dark);
+  height: 90%;
+  aspect-ratio: 1/1;
+  border-radius: var(--rounded);
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%) translateX(-5%);
+  transition: 0.3s ease-in-out;
+}
+
+.read-state-container input:checked + label::before {
+  left: 95%;
+  transform: translateY(-50%) translateX(-95%);
+  background-color: var(--light);
+}
+
+.read-state-container input:checked + label {
+  background-color: var(--dark);
 }
 
 .button.clear-card {
@@ -225,8 +273,8 @@ dialog::backdrop {
   content: '';
   position: absolute;
   background-color: var(--dark);
-  width: 20px;
-  height: 20px;
+  width: 100%;
+  aspect-ratio: 1/1;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(0);
@@ -236,9 +284,13 @@ dialog::backdrop {
 }
 
 .button:hover::before {
-  transform: translate(-50%, -50%) scale(10);
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .button:active::before {
   background-color: var(--gray);
 }
+
+
+
+

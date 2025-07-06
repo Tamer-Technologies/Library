@@ -1,6 +1,6 @@
 # My Kitten Library
 
-A simple personal library management web application built with vanilla HTML, CSS, and JavaScript.
+A simple personal library management web application built with vanilla HTML, CSS, and JavaScript. This project demonstrates the use of Objects and Object Constructors in JavaScript.
 
 ## Features
 
